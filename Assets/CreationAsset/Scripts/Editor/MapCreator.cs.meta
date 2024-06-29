@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: faee8b3f78bf3c84ba40e8735169d596
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - sideSelectionObject: {fileID: 5473739162157358825, guid: 7d1c80ac969eece4e8ec106a2e400213,
+      type: 3}
+  - spaceSelectionObject: {fileID: 1810717722362530029, guid: d050e228fa1944b4185a581db0c9c659,
+      type: 3}
+  - creationLibrary: {fileID: 11400000, guid: 7af5a001f848b89448235a96a3a505db, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

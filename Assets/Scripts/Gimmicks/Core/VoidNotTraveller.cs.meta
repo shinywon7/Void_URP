@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: be22c81bb635af04588a69a2608c6a55
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - colliderMesh: {instanceID: 0}
+  - slice: {fileID: 7200000, guid: 827e611e72bdd3d489169cc26fec6668, type: 3}
+  - ColliderObject: {fileID: 4665631450850811979, guid: a977724c1b898da48bb64be906785ce0,
+      type: 3}
+  executionOrder: 450
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
+  m_Name: VoidRenderer
+  m_EditorClassIdentifier: 
+  debugShaders:
+    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7,
+      type: 3}
+    hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
+  m_RendererFeatures:
+  - {fileID: 7171439044216883535}
+  - {fileID: 2916662727228962289}
+  m_RendererFeatureMap: 4f09ea96d0118663f1b51a1a4c117a28
+  m_UseNativeRenderPass: 0
+  postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
+  xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
+  shaders:
+    blitPS: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
+    copyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
+    screenSpaceShadowPS: {fileID: 0}
+    samplingPS: {fileID: 4800000, guid: 04c410c9937594faa893a11dceb85f7e, type: 3}
+    stencilDeferredPS: {fileID: 4800000, guid: e9155b26e1bc55942a41e518703fe304, type: 3}
+    fallbackErrorPS: {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
+    fallbackLoadingPS: {fileID: 4800000, guid: 7f888aff2ac86494babad1c2c5daeee2, type: 3}
+    materialErrorPS: {fileID: 4800000, guid: 5fd9a8feb75a4b5894c241777f519d4e, type: 3}
+    coreBlitPS: {fileID: 4800000, guid: 93446b5c5339d4f00b85c159e1159b7c, type: 3}
+    coreBlitColorAndDepthPS: {fileID: 4800000, guid: d104b2fc1ca6445babb8e90b0758136b,
+      type: 3}
+    blitHDROverlay: {fileID: 4800000, guid: a89bee29cffa951418fc1e2da94d1959, type: 3}
+    cameraMotionVector: {fileID: 4800000, guid: c56b7e0d4c7cb484e959caeeedae9bbf,
+      type: 3}
+    objectMotionVector: {fileID: 4800000, guid: 7b3ede40266cd49a395def176e1bc486,
+      type: 3}
+    dataDrivenLensFlare: {fileID: 4800000, guid: 6cda457ac28612740adb23da5d39ea92,
+      type: 3}
+  m_AssetVersion: 2
+  m_OpaqueLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_TransparentLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_DefaultStencilState:
+    overrideStencilState: 0
+    stencilReference: 0
+    stencilCompareFunction: 8
+    passOperation: 2
+    failOperation: 0
+    zFailOperation: 0
+  m_ShadowTransparentReceive: 1
+  m_RenderingMode: 0
+  m_DepthPrimingMode: 0
+  m_CopyDepthMode: 0
+  m_AccurateGbufferNormals: 0
+  m_IntermediateTextureMode: 1
+--- !u!114 &2916662727228962289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df3028bec709ff408bb7e1431b062b6, type: 3}
+  m_Name: VoidRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  backMask:
+    serializedVersion: 2
+    m_Bits: 257
+  voidMask:
+    serializedVersion: 2
+    m_Bits: 2176
+  frontMask:
+    serializedVersion: 2
+    m_Bits: 129
+  sectionMask:
+    serializedVersion: 2
+    m_Bits: 512
+  stencilMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  flipMask:
+    serializedVersion: 2
+    m_Bits: 384
+  backShaderTagIds:
+  - SRPDefaultUnlit
+  - UniversalForwardBack
+  frontShaderTagIds:
+  - SRPDefaultUnlit
+  - UniversalForward
+  voidShaderTagIds:
+  - SRPDefaultUnlit
+  - UniversalForwardVoid
+  - UniversalForwardOnly
+  sectionShaderTagIds:
+  - SRPDefaultUnlit
+  - UniversalForward
+  frontDepthShaderTagIds:
+  - VoidDepth
+  backDepthShaderTagIds:
+  - VoidDepthBack
+  stencilShaderTagIds:
+  - SRPDefaultUnlit
+  - UniversalForward
+  blurIteration: 5
+--- !u!114 &7171439044216883535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2cf1a9377a9c764a93c20ff28b23b82, type: 3}
+  m_Name: HeightSimulateFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  frontMat: {fileID: 2100000, guid: 173b477fc0f888345a7d77510885e91b, type: 2}
+  backMat: {fileID: 2100000, guid: 645a197f3391fef4ba76539991589efd, type: 2}
+  FrontHeightRenderTexture: {fileID: 8400000, guid: 56c164de181b0b840be698fa66b967ae,
+    type: 2}
+  FrontTempHeightRenderTexture: {fileID: 8400000, guid: c4d0bde0b5b1c0c458ed305547a475fe,
+    type: 2}
+  FrontRelativeVelocityTexture: {fileID: 8400000, guid: bb97ab19248846f4fa4482f0926581c8,
+    type: 2}
+  BackHeightRenderTexture: {fileID: 8400000, guid: 9299a662ff148f84295cf4e3eb0ddf35,
+    type: 2}
+  BackTempHeightRenderTexture: {fileID: 8400000, guid: b70471846c1d4c440961cc1db059c97f,
+    type: 2}
+  BackRelativeVelocityTexture: {fileID: 8400000, guid: 5fda72deb374cb9498edb1020f228b78,
+    type: 2}
+  FrontHeightRenderTextureName: _FrontHeightTexture
+  FrontTempHeightRenderTextureName: _FrontTempHeightTexture
+  FrontRelativeVelocityTextureName: _FrontRelativeVelocityTexture
+  BackHeightRenderTextureName: _BackHeightTexture
+  BackTempHeightRenderTextureName: _BackTempHeightTexture
+  BackRelativeVelocityTextureName: _BackRelativeVelocityTexture

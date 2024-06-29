@@ -1,0 +1,101 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+StructuredBuffer<int> triangles;
+StructuredBuffer<int3> nearTriangles;
+RWStructuredBuffer<float3> vertices;
+RWStructuredBuffer<int> upperTriangles;
+RWStructuredBuffer<int> lowerTriangles;
+RWStructuredBuffer<int> nextTriangles;
+RWStructuredBuffer<float2> planeVertices;
+
+float4 plane;
+float3 position;
+int count;
+int triangleCount;
+float4x4 localToPlaneMatrix;
+
+float planeDist(float3 vertex)
+{
+    return (plane.x * vertex.x + plane.y * vertex.y + plane.z * vertex.z + plane.w);
+
+}
+float3 Lerp(float3 a, float3 b, float d1, float d2)
+{
+    return (a + (d1 / (d1 - d2)) * (b - a));
+}
+
+void GetTriangleSlice(int a, int b, int c, float da, float db, float dc, bool flag, int now,int idx, int befSide)
+{
+    int ca, cb;
+    ca = count + nearTriangles[idx][befSide];
+    cb = count + idx;
+    vertices[cb] = Lerp(vertices[b], vertices[c], db, dc);
+    planeVertices[idx] = mul(localToPlaneMatrix, float4(vertices[cb]+position,0)).xz;
+    nextTriangles[idx] = nearTriangles[idx][befSide];
+    
+    if (flag)
+    {
+        upperTriangles[now] = a;
+        upperTriangles[now+1] = cb;
+        upperTriangles[now+2] = b;
+        upperTriangles[now+3] = a;
+        upperTriangles[now+4] = ca;
+        upperTriangles[now+5] = cb;
+        lowerTriangles[now] = c;
+        lowerTriangles[now+1] = cb;
+        lowerTriangles[now+2] = ca;
+    }
+    else
+    {
+        lowerTriangles[now] = a;
+        lowerTriangles[now+1] = b;
+        lowerTriangles[now+2] = cb;
+        lowerTriangles[now+3] = a;
+        lowerTriangles[now+4] = cb;
+        lowerTriangles[now+5] = ca;
+        upperTriangles[now] = c;
+        upperTriangles[now+1] = ca;
+        upperTriangles[now+2] = cb;
+    }
+    return;
+}
+
+[numthreads(16,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    int idx = id.x;
+    if (idx >= triangleCount)
+        return;
+    int now = id.x * 6;
+    int a = triangles[idx * 3], b = triangles[idx*3+1], c = triangles[idx*3+2];
+    float da = planeDist(vertices[a]), db = planeDist(vertices[b]), dc = planeDist(vertices[c]);
+    bool fa = da > 0, fb = db > 0, fc = dc > 0;
+    if (fa && fb && fc)
+    {
+        upperTriangles[now] = a;
+        upperTriangles[now+1] = b;
+        upperTriangles[now+2] = c;
+    }
+    else if(!fa && !fb && !fc)
+    {
+        lowerTriangles[now] = a;
+        lowerTriangles[now+1] = b;
+        lowerTriangles[now+2] = c;
+    }
+    else if (fa && fb && !fc)
+        GetTriangleSlice(b, a, c, db, da, dc, true, now,idx, 0);
+    else if (fa && !fb && fc)
+        GetTriangleSlice(a, c, b, da, dc, db, true, now, idx, 2);
+    else if (!fa && fb && fc)
+        GetTriangleSlice(c, b, a, dc, db, da, true, now,idx, 1);
+    else if (!fa && !fb && fc)
+        GetTriangleSlice(a, b, c, da, db, dc, false, now,idx, 1);
+    else if (!fa && fb && !fc)
+        GetTriangleSlice(c, a, b, dc, da, db, false, now,idx, 0);
+    else
+        GetTriangleSlice(b, c, a, db, dc, da, false, now,idx, 2);
+}
+
