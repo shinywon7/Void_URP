@@ -145,6 +145,7 @@ Varyings LitPassVertex(Attributes input)
         output.uv /= _Resolution;
         input.positionOS.y += height.x;
         input.normalOS = normalize(float3(height.z,1,height.w));
+        output.normalWS = float3(height.z,0,height.w);
     }
     //input.normalOS = float3(0,1,0);
 
@@ -169,7 +170,8 @@ Varyings LitPassVertex(Attributes input)
     //output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
 
     // already normalized from normal transform to WS.
-    output.normalWS = normalInput.normalWS;
+
+    //output.normalWS = normalInput.normalWS;
 #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR) || defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
     real sign = input.tangentOS.w * GetOddNegativeScale();
     half4 tangentWS = half4(normalInput.tangentWS.xyz, sign);
@@ -349,9 +351,9 @@ void LitPassFragment(
     //                     1/distance(input.barys, float2(-1, Sqrt3)),
     //                     1/distance(input.barys, float2(-1, -Sqrt3)));
     //barys = float3(barys.y*barys.z,barys.x*barys.z,barys.x*barys.y);
-    barys = pow(barys, _PowRate);
-    input.normalWS = normalize((input.normal0 * barys.x + input.normal1 * barys.y + input.normal2 * barys.z)/(barys.x+barys.y+barys.z));
-
+    //barys = pow(barys, _PowRate);
+    //input.normalWS = (input.normal0 * barys.x + input.normal1 * barys.y + input.normal2 * barys.z)/(barys.x+barys.y+barys.z);
+    input.normalWS = TransformObjectToWorldNormal(normalize(float3(input.normalWS.x,1,input.normalWS.z)));
     half3 viewDirWS = -GetWorldSpaceNormalizeViewDir(input.positionWS);
     SurfaceData surfaceData;
     

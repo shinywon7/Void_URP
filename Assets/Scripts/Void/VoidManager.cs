@@ -235,7 +235,7 @@ public class VoidManager : MonoBehaviour
         Shader.SetGlobalFloat("_VoidWidth", voidWidth);
         Shader.SetGlobalFloat("_HalfVoidWidth", halfVoidWidth);
 
-        Shader.SetGlobalVector("_InsidePosition", transform.position);
-        Shader.SetGlobalVector("_OutsidePosition", transform.position-transform.up*voidWidth);
+        //Shader.SetGlobalVector("_InsidePosition", transform.position);
+        //Shader.SetGlobalVector("_OutsidePosition", transform.position-transform.up*voidWidth);
     }
 }
